@@ -151,6 +151,7 @@ class ExampleSidebarX extends StatelessWidget {
         const SidebarXItem(
           icon: Icons.people,
           label: 'People',
+          disabled: true,
         ),
         const SidebarXItem(
           icon: Icons.favorite,

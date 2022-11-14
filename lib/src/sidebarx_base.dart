@@ -134,8 +134,11 @@ class _SidebarXState extends State<SidebarX>
                       theme: t,
                       animationController: _animationController!,
                       extended: widget.controller.extended,
-                      selected: widget.controller.selectedIndex == index,
-                      onTap: () => _onItemSelected(item, index),
+                      selected: (item.disabled == null || !item.disabled!) &&
+                          widget.controller.selectedIndex == index,
+                      onTap: item.disabled != null && item.disabled!
+                          ? () {}
+                          : () => _onItemSelected(item, index),
                     );
                   },
                 ),

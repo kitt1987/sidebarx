@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 class SidebarXCell extends StatefulWidget {
@@ -52,10 +53,19 @@ class _SidebarXCellState extends State<SidebarXCell> {
     final textPadding =
         widget.selected ? theme.selectedItemTextPadding : theme.itemTextPadding;
 
+    PointerEnterEventListener onEnter = (_) {};
+    PointerExitEventListener onExit = (_) {};
+    var cursor = SystemMouseCursors.basic;
+    if (widget.item.disabled == null || !widget.item.disabled!) {
+      onEnter = (_) => _onEnteredCellZone();
+      onExit = (_) => _onExitCellZone();
+      cursor = SystemMouseCursors.click;
+    }
+
     return MouseRegion(
-      onEnter: (_) => _onEnteredCellZone(),
-      onExit: (_) => _onExitCellZone(),
-      cursor: SystemMouseCursors.click,
+      onEnter: onEnter,
+      onExit: onExit,
+      cursor: cursor,
       child: GestureDetector(
         onTap: widget.onTap,
         child: Container(
